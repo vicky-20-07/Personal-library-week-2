@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Personal Library</title>
+ <link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+rel="stylesheet" integrity="sha384-
+EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+crossorigin="anonymous">
+ <script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js
+" integrity="sha384-
+HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+crossorigin="anonymous"></script>
+</head>
+<style>
+body{ 
+ font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sanserif; 
+ font-size: medium; 
+ background: rgb(63,94,251); 
+ background: radial-gradient(circle, rgb(58, 229, 238) 0%, rgb(66, 244, 119) 
+100%); 
+} 
+.dis{ 
+ padding: 2rem; 
+ border: 4rem; 
+ margin: 4rem; 
+ box-shadow: 0px 2px 10px 1px white; 
+ display: flex; 
+ align-items:center; 
+ justify-content:center; 
+} 
+.x{ 
+ width: 10rem; 
+ height: 10rem; 
+ box-shadow: 0px 2px 10px 1px black; 
+} 
+.center{ 
+ display:flex; 
+ align-items:center; 
+ justify-content:center; 
+} 
+.header{ 
+ padding: 1rem; 
+ border: 1rem; 
+ margin: 1rem; 
+ border-radius: 5rem; 
+ box-sizing: border-box; 
+ box-shadow: 6px 2px 10px 1px white; 
+} 
+.title{ 
+ color: aliceblue; 
+ text-align: center; 
+} 
+</style>
+<script>
+function CreateBook(){ 
+ return{ 
+ title:"The Book", 
+ author:"The author", 
+ yearPublished:0, 
+ readStatus:"UnRead", 
+ price:0, 
+ getSummary:function(){ 
+ return "[ Title: "+this.title+" Author: "+this.author+" Price: $"+this.price+" YearPublished: "+this.yearPublished+" ReadStatus: "+this.readStatus+" ]"; 
+ }, 
+ toggleReadStatus:function(status){ 
+ this.readStatus=status; 
+ } 
+}; 
+} 
+let book=CreateBook(); 
+book.title="Song of Ice and Fire - Game of Thrones"; 
+book.author="George R.R. Martin"; 
+book.yearPublished=2001; 
+book.price=2000; 
+book.readStatus="UnRead"; 
+let book1=CreateBook(); 
+book1.title="Dance of Dragons - House of Dragons"; 
+book1.author="George R.R. Martin"; 
+book1.yearPublished=2010; 
+book1.price=2000; 
+book1.readStatus="UnRead"; 
+let book2=CreateBook(); 
+book2.title="Chamber of Secrets - Harry potter"; 
+book2.author="J K Rowling"; 
+book2.yearPublished=2010; 
+book2.price=2000; 
+book2.readStatus="Read"; 
+let book3=CreateBook(); 
+book3.title="Prisoner of azkabon - Harry potter"; 
+book3.author="J K Rowling"; 
+book3.yearPublished=2022; 
+book3.price=2000; 
+book3.readStatus="Read"; 
+let book4=CreateBook(); 
+book4.title="John wick"; 
+book4.author="Bale"; 
+book4.yearPublished=2000; 
+book4.price=2000; 
+book4.readStatus="Read"; 
+let book5=CreateBook(); 
+book5.title="Hangover-1"; 
+book5.author="alan"; 
+book5.yearPublished=1999; 
+book5.price=2000; 
+book5.readStatus="Read"; 
+let book6=CreateBook(); 
+book6.title="Hangover-2"; 
+book6.author="phil"; 
+book6.yearPublished=2088; 
+book6.price=2000; 
+book6.readStatus="Read"; 
+let book7=CreateBook(); 
+book7.title="Hangover-3"; 
+book7.author="teddy"; 
+book7.yearPublished=2099; 
+book7.price=2000; 
+book7.readStatus="Read"; 
+let book8=CreateBook(); 
+book8.title="KGF"; 
+book8.author="rocky"; 
+book8.yearPublished=2006; 
+book8.price=2000; 
+book8.readStatus="Read"; 
+let library=Array(); 
+function addBook(book){ 
+ library.push(book); 
+} 
+function removeLastBook() 
+{ 
+ if(library.pop()==undefined) 
+ { 
+ console.log("The array is Empty"); 
+ } 
+ else
+ { 
+ library.pop(); 
+ console.log("The Element is removed Successfully"); 
+ } 
+} 
+function addBookToFront(book) 
+{ 
+ library.unshift(book); 
+} 
+function removefirstBook() 
+{ 
+ if(library.shift()==undefined) 
+ { 
+ console.log("The array is Empty"); 
+ } 
+ else
+ { 
+ library.shift(); 
+ console.log("The Element is removed Successfully"); 
+ } 
+} 
+function getAllTitles() 
+{ 
+ let arr=library.map(x=>x.title+'</br>'); 
+ console.log(arr); 
+ return arr; 
+} 
+function getAllNames() 
+{ 
+ let arr=library.map(x=>x.title); 
+ return arr; 
+} 
+function getBooksByName(tit) 
+{ 
+ let newArr=[]; 
+ newArr=library.filter(x=>x.title==tit); 
+ return newArr.map(x=>x.getSummary()+'</br>'+'</br>'); 
+} 
+function getBooksByAuthor(auth) 
+{ 
+ let newArr=[]; 
+ newArr=library.filter(x=>x.author==auth); 
+ //console.log(newArr.map(x=>x.getSummary()+'</br>'+'</br>'));
+ return newArr.map(x=>x.getSummary()+'</br>'); 
+} 
+function getTotalBooksPublishedBefore(year){ 
+ let Arr = library.filter(x=>x.yearPublished<year).reduce(p=>p=p+1,0); 
+ return Arr; 
+} 
+function removeBookByTitle(title){ 
+ let index=library.findIndex(x=>x.title==title); 
+ console.log(index); 
+ library.splice(index,1); 
+} 
+function getBooksByReadStatus(status){ 
+ let readBook=library.filter(x=>x.readStatus==status); 
+ return readBook.map(x=>x.getSummary()+'</br>'+'</br>'); 
+} 
+function getSubLibrary(start,end){ 
+ let tempLib=library.slice(start,end); 
+ return tempLib.map(x=>x.getSummary()+'</br>'+'</br>'); 
+} 
+addBook(book); 
+addBook(book1); 
+addBook(book2); 
+addBook(book3); 
+addBook(book4); 
+addBook(book5); 
+addBook(book6); 
+addBook(book7); 
+addBook(book8); 
+function myTitles() { 
+document.getElementById("test").innerHTML = getAllTitles(); 
+} 
+function myAuthor() { 
+ let authu = document.getElementById("thor").value; 
+ document.getElementById("authuro").innerHTML = getBooksByAuthor(authu); 
+} 
+function myBooks() { 
+ let tit = document.getElementById("boook").value; 
+ document.getElementById("hcl").innerHTML =getBooksByName(tit); 
+} 
+function myYear() { 
+ let year = document.getElementById("year").value; 
+ document.getElementById("total").innerHTML =
+getTotalBooksPublishedBefore(year); 
+} 
+function mystatus() { 
+ let status = document.getElementById("statu").value; 
+ console.log(status); 
+ document.getElementById("option").innerHTML = getBooksByReadStatus(status); 
+} 
+function subArray() { 
+ let start = document.getElementById("start").value; 
+ let end = document.getElementById("end").value; 
+ document.getElementById("poke").innerHTML = getSubLibrary(start,end); 
+} 
+function generateTable(){ 
+ let title=getAllTitles(); 
+ mytable.innerHTML="<th>BOOKS:</th>"; 
+ for(var i=0;i<title.length;i++) 
+ { 
+ mytable.innerHTML += "<td>"+title[i]+"</td>"; 
+ } 
+} 
+function addBookdetailsfirst(){ 
+ let name = document.getElementById("in1").value; 
+ let auth = document.getElementById("in2").value; 
+ let year = document.getElementById("in3").value; 
+ let price = document.getElementById("in5").value; 
+ let state = document.getElementById("in4").value; 
+if(name!=""){ 
+ let tempbook=CreateBook(); 
+ tempbook.title=name; 
+ tempbook.author=auth; 
+ tempbook.price=price; 
+ tempbook.yearPublished=year; 
+ tempbook.readStatus=state; 
+ addBookToFront(tempbook); 
+} 
+else{ 
+ console.log("Empty Input!!!"); 
+} 
+} 
+function addBookdetailslast(){ 
+ let name = document.getElementById("in1").value; 
+ let auth = document.getElementById("in2").value; 
+ let year = document.getElementById("in3").value; 
+ let price = document.getElementById("in5").value; 
+ let state = document.getElementById("in4").value; 
+ if(name!=""){ 
+ let tempbook=CreateBook(); 
+ tempbook.title=name; 
+ tempbook.author=auth; 
+ tempbook.yearPublished=year; 
+ tempbook.price=price; 
+ tempbook.readStatus=state; 
+ addBook(tempbook); 
+} 
+else{ 
+ console.log("Empty Input!!!"); 
+} 
+} 
+function removeBookfirst() 
+{ 
+ removefirstBook(); 
+} 
+function removeBookend() 
+{ 
+ removeLastBook(); 
+} 
+function removetitlewise() 
+{ 
+ let name = document.getElementById("input2").value; 
+ removeBookByTitle(name); 
+} 
+function toggle() { 
+ let name = document.getElementById("name").value; 
+ let stats = document.getElementById("sta").value; 
+ console.log(name+" "+stats); 
+ library.filter(x=>
+ {if(x.title==name) 
+ { 
+ x.toggleReadStatus(stats); 
+ } 
+ }); 
+ document.getElementById("modi").innerHTML="Successfully Toggles"; 
+}
+</script>
+<body>
+ <div id="home">
+ <div class="header">
+ <h1 class="title">Personal Library</h1>
+ </div>
+ 
+ <div class="container-fluid-large">
+ <div class="row d-flex justify-content-center">
+ <div class="g-col-6">
+ <div class="card dis">
+ <p style="color: blueviolet;">
+ A simple library application is a program that helps 
+manage a library's collection of books and allows users to perform tasks such as 
+checking out books, returning books, searching for books, and so on. It typically 
+includes features to keep track of book information, user information, and the 
+borrowing status of each book. Users can interact with the application through a 
+user-friendly interface. 
+Here are the key components and functionalities of a simple library application: 
+Book Management: The application allows the library staff to add, edit, and 
+delete books from the library's collection. Each book may have attributes such as 
+title, author, publication date. 
+ </p>
+ <div class="row">
+ <div class="col center">
+ <li class="card x center">
+ <a class="btn btn-outline-danger"
+href="#add_books">Add Books</a>
+ </li>
+ </div>
+<div class="col center">
+ <li class="card x center">
+ <a class="btn btn-outline-danger"
+href="#remove_books">Remove Books</a>
+ </li>
+ </div>
+ <div class="col center">
+ <li class="card x center">
+ <a class="btn btn-outline-danger"
+href="#Search_books">Search Books</a>
+ </li>
+ </div>
+<div class="col center">
+ <li class="card x center">
+ <a class="btn btn-outline-danger"
+href="#List_books">List the Books</a>
+ </li>
+ </div>
+<div class="col center">
+ <li class="card x center">
+ <a class="btn btn-outline-danger"
+href="#Toggle">Change the status</a>
+ </li>
+ </ul>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+</div>
+ <div id="add_books">
+ <div class="header">
+ <h1 class="title">Add Books</h1>
+ </div>
+ <div class="container-fluid-large">
+ <div class="row d-flex justify-content-center">
+ <div class="g-col-6">
+ <div class="card dis">
+ <form class="form-control" action="#">
+ <div class="input-group mb-3">
+ <span class="input-group-text" id="inputGroup-sizingdefault">Book's Name:</span>
+ <input type="text" id="in1" class="form-control" arialabel="Sizing example input" aria-describedby="inputGroup-sizing-default">
+ </div>
+ <div class="input-group mb-3">
+ <span class="input-group-text" id="inputGroup-sizingdefault">Book's Author:</span>
+ <input type="text" id="in2" class="form-control" arialabel="Sizing example input" aria-describedby="inputGroup-sizing-default">
+ </div>
+ <div class="input-group mb-3">
+ <span class="input-group-text" id="inputGroup-sizingdefault">Published Year:</span>
+ <input type="text" id="in3" class="form-control" arialabel="Sizing example input" aria-describedby="inputGroup-sizing-default">
+ </div>
+ <div class="input-group mb-3">
+ <span class="input-group-text" id="inputGroup-sizingdefault">Price:$</span>
+ <input type="text" id="in5" class="form-control" arialabel="Sizing example input" aria-describedby="inputGroup-sizing-default">
+ </div>
+ <div class="input-group mb-3">
+ <label class="input-group-text"
+for="inputGroupSelect01">Current Status</label>
+ <select class="form-select" id="inputGroupSelect01">
+ <option selected>Choose...</option>
+ <option id="in4" value="Read">Read</option>
+ <option id="in4" value="UnRead">UnRead</option>
+ </select>
+ </div>
+<div class="d-grid gap-2 d-md-block">
+ <button type="submit" class="btn btnprimary" value="front" type="button" onclick="addBookdetailsfirst()">AddFirst</button>
+ <button type="submit" class="btn btn-primary"
+value="last" type="button" onclick="addBookdetailslast()">Add-Last</button>
+ </div>
+ </form>
+ </div>
+ </div>
+ </div>
+ </div>
+</div>
+<div id="remove_books">
+ <div class="header">
+ <h1 class="title">Remove Books</h1>
+ </div>
+ <div class="container-fluid-large">
+ <div class="row d-flex justify-content-center">
+ <div class="g-col-6">
+ <div class="card dis">
+ <form class="form-control" action="#">
+ <div class="input-group mb-3">
+ <span class="input-group-text" id="inputGroup-sizingdefault">Book Title:</span>
+ <div class="input-group mb-3">
+ <input type="text" class="form-control"
+placeholder="Title" id="input2">
+ <button class="btn btn-outline-secondary"
+type="submit" onclick="removetitlewise()">Remove</button>
+ </div>
+ </div>
+ <div class="d-grid gap-2 d-md-block">
+ <button type="submit" class="btn btn-primary" value="front"
+type="button" onclick=" removeBookfirst()">Remove-First</button>
+ <button type="submit" class="btn btn-primary" value="last"
+type="button" onclick="removeBookend()">Remove-Last</button>
+ </div>
+ </form>
+ </div>
+ </div>
+ </div>
+ </div>
+</div>
+<div id="Search_books">
+ <div class="header">
+ <h1 class="title">Search Books</h1>
+ </div>
+ <div class="container-fluid-large">
+ <div class="row d-flex justify-content-center">
+ <div class="g-col-6">
+ <div class="card dis">
+ <form class="form-control" action="#" onsubmit="">
+ <div class="input-group mb-3">
+ <button type="button" class="btn btn-outline-dark" databs-toggle="modal" data-bs-target="#exampleModal" onclick="myTitles()">Display All 
+Titles</button>
+ <div class="modal fade" id="exampleModal" tabindex="-1"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+ <div class="modal-content">
+ <div class="modal-header">
+ <h1 class="modal-title fs-5"
+id="exampleModalLabel">Book's title:</h1>
+ </div>
+<div class="modal-body">
+ <div id="test"></div>
+ </div>
+<div class="modal-footer">
+ <button type="button" class="btn btn-danger"
+data-bs-dismiss="modal" aria-label="Close">Close</button>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="input-group mb-3">
+ <span class="input-group-text" id="inputGroup-sizingdefault">Book's Title:</span>
+ <input type="text" id="boook" class="form-control" arialabel="Sizing example input" aria-describedby="inputGroup-sizing-default">
+ 
+ <button type="button" class="btn btn-outline-dark" databs-toggle="modal" data-bs-target="#exampleModal1"
+onclick="myBooks()">Display</button>
+ <div class="modal fade" id="exampleModal1" tabindex="-1"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+ <div class="modal-content">
+ <div class="modal-header">
+ <h1 class="modal-title fs-5"
+id="exampleModalLabel">Book's title:</h1>
+ </div>
+<div class="modal-body">
+ <div id="hcl"></div>
+ </div>
+<div class="modal-footer">
+ <button type="button" class="btn btn-danger"
+data-bs-dismiss="modal" aria-label="Close">Close</button>
+ </div>
+ </div>
+ </div>
+ </div>
+</div>
+ <div class="input-group mb-3">
+ <span class="input-group-text" id="inputGroup-sizingdefault">Book's Author:</span>
+ <input type="text" id="thor" class="form-control" arialabel="Sizing example input" aria-describedby="inputGroup-sizing-default">
+ 
+ <button type="button" class="btn btn-outline-dark" databs-toggle="modal" data-bs-target="#exampleModal100"
+onclick="myAuthor()">Display</button>
+ <div class="modal fade" id="exampleModal100" tabindex="-
+1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+ <div class="modal-content">
+ <div class="modal-header">
+ <h1 class="modal-title fs-5"
+id="exampleModalLabel">Book's title:</h1>
+ </div>
+<div class="modal-body">
+ <div id="authuro"></div>
+ </div>
+<div class="modal-footer">
+ <button type="button" class="btn btn-danger"
+data-bs-dismiss="modal" aria-label="Close">Close</button>
+ </div>
+ </div>
+ </div>
+ </div>
+ <p id="auth"></p>
+ </div>
+ <div class="input-group mb-3">
+ <span class="input-group-text" id="inputGroup-sizingdefault">Published Year:</span>
+ <input type="text" id="year" class="form-control" arialabel="Sizing example input" aria-describedby="inputGroup-sizing-default">
+ 
+ <button type="button" class="btn btn-outline-dark" databs-toggle="modal" data-bs-target="#exampleModal2"
+onclick="myYear()">Display</button>
+ <div class="modal fade" id="exampleModal2" tabindex="-1"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+ <div class="modal-content">
+ <div class="modal-header">
+ <h1 class="modal-title fs-5"
+id="exampleModalLabel">No Of Books:</h1>
+ </div>
+<div class="modal-body">
+ <div id="total"></div>
+ </div>
+<div class="modal-footer">
+ <button type="button" class="btn btn-danger"
+data-bs-dismiss="modal" aria-label="Close">Close</button>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="input-group mb-3">
+ <label class="input-group-text"
+for="statu">Status</label>
+ <select class="form-select" id="statu">
+ <option selected>Choose...</option>
+ <option value="Read">Read</option>
+ <option value="UnRead">UnRead</option>
+ </select>
+<button type="button" class="btn btn-outline-dark" databs-toggle="modal" data-bs-target="#exampleModal3"
+onclick="mystatus()">Display</button>
+ <div class="modal fade" id="exampleModal3" tabindex="-1"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+ <div class="modal-content">
+ <div class="modal-header">
+ <h1 class="modal-title fs-5"
+id="exampleModalLabel">Book's:</h1>
+ </div>
+<div class="modal-body">
+ <div id="option"></div>
+ </div>
+<div class="modal-footer">
+ <button type="button" class="btn btn-danger"
+data-bs-dismiss="modal" aria-label="Close">Close</button>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </form>
+ </div>
+ </div>
+ </div>
+ </div>
+</div>
+<div id="List_books">
+ <div class="header">
+ <h1 class="title">A Sequence of Books</h1>
+ </div>
+ <div class="container-fluid-large">
+ <div class="row d-flex justify-content-center">
+ <div class="g-col-6">
+ <div class="card dis">
+ <form class="form-control" action="#" onsubmit="">
+ <div class="input-group mb-3">
+ <span class="input-group-text" id="inputGroup-sizingdefault">Start:</span>
+ <input type="text" id="start" class="form-control" arialabel="Sizing example input" aria-describedby="inputGroup-sizing-default">
+ <span class="input-group-text" id="inputGroup-sizingdefault">End:</span>
+ <input type="text" id="end" class="form-control" arialabel="Sizing example input" aria-describedby="inputGroup-sizing-default">
+ <button type="button" class="btn btn-outline-dark" databs-toggle="modal" data-bs-target="#exampleModal4"
+onclick="subArray()">Display</button>
+ <div class="modal fade" id="exampleModal4" tabindex="-1"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+ <div class="modal-content">
+ <div class="modal-header">
+ <h1 class="modal-title fs-5"
+id="exampleModalLabel">Book's:</h1>
+ </div>
+<div class="modal-body">
+ <div id="poke"></div>
+ </div>
+<div class="modal-footer">
+ <button type="button" class="btn btn-danger"
+data-bs-dismiss="modal" aria-label="Close">Close</button>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </form>
+ </div>
+ </div>
+ </div>
+ </div>
+</div>
+<div id="Toggle">
+ <div class="header">
+ <h1 class="title">Change status of Book</h1>
+ </div>
+ <div class="container-fluid-large">
+ <div class="row d-flex justify-content-center">
+ <div class="g-col-6">
+ <div class="card dis">
+ <div class="input-group mb-3">
+ <details open>
+ <Summary onclick="generateTable()">Display Book:</Summary>
+ <div>
+ <table id="mytable" class="table table-dark">
+ <tr>
+</tr>
+ </table>
+ </div>
+ </details>
+ </div>
+ <div class="input-group mb-3">
+ <span class="input-group-text" id="inputGroup-sizingdefault">Book's Title:</span>
+ <input type="text" id="name" class="form-control" arialabel="Sizing example input" aria-describedby="inputGroup-sizing-default">
+ </div>
+ <div class="input-group mb-3">
+ <label class="input-group-text" for="sta">Status</label>
+ <select class="form-select" id="sta">
+ <option selected>Choose...</option>
+ <option value="Read">Read</option>
+ <option value="UnRead">UnRead</option>
+ </select>
+ <button type="button" class="btn btn-outline-dark" data-bstoggle="modal" data-bs-target="#exampleModal5" onclick="toggle()">set</button>
+ <div class="modal fade" id="exampleModal5" tabindex="-1"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+ <div class="modal-content">
+ <div class="modal-header">
+ <h1 class="modal-title fs-5"
+id="exampleModalLabel">Book's:</h1>
+ </div>
+<div class="modal-body">
+ <div id="modi"></div>
+ </div>
+<div class="modal-footer">
+ <button type="button" class="btn btn-danger" data-bsdismiss="modal" aria-label="Close">Close</button>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+</div>
+</body>
+</html>
